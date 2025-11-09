@@ -1,0 +1,263 @@
+/* --- Base Styles --- */
+html {
+    background-image: url('img.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #121212; /* Dark fallback */
+    color: white;
+    text-align: center;
+    overflow-x: hidden; /* Hide horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll */
+    /* Apply the Neon Font */
+    font-family: 'Press Start 2P', cursive;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    font-size: 25px;
+    color: #ffffff;
+    /* Neon glow effect */
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+}
+
+/* --- العنوان الرئيسي (توهج وتأثير) --- */
+h1#msgs {
+    animation: gentle-title-glow 4s ease-in-out infinite;
+}
+
+h2, h1[style*="yellow"] {
+    color: #fffb00;
+    text-shadow: 0 0 5px #fffb00, 0 0 10px #fffb00, 0 0 15px #fffb00;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #00aaff;
+    opacity: 0.5;
+    box-shadow: 0 0 10px #00aaff;
+}
+
+#progress {
+    display: block;
+}
+
+#menu, #info, #crypto {
+    /* تم توحيد العرض، مع الأخذ في الاعتبار أن #crypto لم يتم تعريفه في الـ CSS القديم */
+    display: block;
+    margin-top: 80px;
+}
+
+#info, #crypto {
+    display: none; /* Hide sections by default */
+}
+
+/* --- Layout Styles (Two Columns) --- */
+.menu-layout {
+    display: flex;
+    justify-content: space-around; /* Distribute columns */
+    gap: 750px; /* Adjust gap to fit screen and background */
+    margin-top: -10px;
+    padding: 0 10px;
+}
+
+/* --- Column Background and Border --- */
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px 15px;
+    border: 2px solid rgba(0, 170, 255, 0.3); /* Light neon blue border */
+    box-shadow: 0 0 25px rgba(0, 170, 255, 0.2);
+}
+
+.bottom-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+    gap: 20px;
+}
+
+/* --- Neon Button Styles (Base) --- */
+.btn {
+    background-color: transparent;
+    border: 3px solid #00aaff; /* Neon blue border */
+    color: #00aaff;
+    width: 280px;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 10px #00aaff inset;
+    text-shadow: 0 0 5px #00aaff;
+    animation: neon-pulse-blue 3s infinite;
+}
+
+.btn:hover {
+    background-color: #00aaff;
+    color: #121212;
+    box-shadow: 0 0 10px #00aaff, 0 0 40px #00aaff, 0 0 80px #00aaff, 0 0 20px #00aaff inset;
+    animation: none; /* Stop pulsing on hover */
+}
+
+/* Red Button (btn-alt) */
+.btn-alt {
+    border-color: #ff0000;
+    color: #ff0000;
+    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 10px #ff0000 inset;
+    text-shadow: 0 0 5px #ff0000;
+    animation-name: neon-pulse-red;
+}
+.btn-alt:hover {
+    background-color: #ff0000;
+    color: #121212;
+    box-shadow: 0 0 10px #ff0000, 0 0 40px #ff0000, 0 0 80px #ff0000, 0 0 20px #ff0000 inset;
+}
+
+/* PS5 Button (btn-ps5) - White/Silver Neon */
+.btn-ps5 {
+    border-color: #c0c0c0;
+    color: #c0c0c0;
+    box-shadow: 0 0 10px #c0c0c0, 0 0 20px #c0c0c0, 0 0 10px #c0c0c0 inset;
+    text-shadow: 0 0 5px #c0c0c0;
+    animation-name: neon-pulse-white;
+}
+.btn-ps5:hover {
+    background-color: #c0c0c0;
+    color: #121212;
+    box-shadow: 0 0 10px #c0c0c0, 0 0 40px #c0c0c0, 0 0 80px #c0c0c0, 0 0 20px #c0c0c0 inset;
+}
+
+/* Info/Donation Button (btn-info) - Yellow Neon */
+.btn-info {
+    border-color: #fffb00;
+    color: #fffb00;
+    box-shadow: 0 0 10px #fffb00, 0 0 20px #fffb00, 0 0 10px #fffb00 inset;
+    text-shadow: 0 0 5px #fffb00;
+    animation-name: neon-pulse-yellow;
+}
+.btn-info:hover {
+    background-color: #fffb00;
+    color: #121212;
+    box-shadow: 0 0 10px #fffb00, 0 0 40px #fffb00, 0 0 80px #fffb00, 0 0 20px #fffb00 inset;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes gentle-title-glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+    }
+    50% {
+        text-shadow: 0 0 7px #fff, 0 0 12px #fff, 0 0 20px #00aaff, 0 0 30px #00aaff, 0 0 40px #00aaff;
+    }
+}
+
+@keyframes neon-pulse-blue {
+    0%, 100% {
+        box-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 10px #00aaff inset;
+        text-shadow: 0 0 5px #00aaff;
+    }
+    50% {
+        box-shadow: 0 0 15px #00aaff, 0 0 30px #00aaff, 0 0 15px #00aaff inset;
+        text-shadow: 0 0 10px #00aaff;
+    }
+}
+@keyframes neon-pulse-red {
+    0%, 100% { box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 10px #ff0000 inset; }
+    50% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 15px #ff0000 inset; }
+}
+@keyframes neon-pulse-white {
+    0%, 100% { box-shadow: 0 0 10px #c0c0c0, 0 0 20px #c0c0c0, 0 0 10px #c0c0c0 inset; }
+    50% { box-shadow: 0 0 15px #c0c0c0, 0 0 30px #c0c0c0, 0 0 15px #c0c0c0 inset; }
+}
+@keyframes neon-pulse-yellow {
+    0%, 100% { box-shadow: 0 0 10px #fffb00, 0 0 20px #fffb00, 0 0 10px #fffb00 inset; }
+    50% { box-shadow: 0 0 15px #fffb00, 0 0 30px #fffb00, 0 0 15px #fffb00 inset; }
+}
+
+/* --- Footer --- */
+footer {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    margin-top: 60px;
+    color: #888;
+    font-size: 16px;
+    text-shadow: none;
+}
+footer p {
+    margin: 0 0 15px 0;
+}
+.whatsapp-link {
+    color: #25D366; /* WhatsApp green */
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #25D366;
+}
+.whatsapp-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #25D366, 0 0 20px #25D366;
+}
+.whatsapp-link i {
+    margin-right: 8px;
+}
+
+/* --- Compatibility with other sections (e.g., Fan Control) if used later --- */
+.fan-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.fan-control .btn {
+    width: 200px;
+    margin: 0;
+}
+select {
+    background-color: transparent;
+    color: #00aaff;
+    border: 3px solid #00aaff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    height: 80px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-shadow: 0 0 5px #00aaff;
+    animation: neon-pulse-blue 3s infinite;
+}
+select:hover {
+    background-color: #00aaff;
+    color: #121212;
+    box-shadow: 0 0 10px #00aaff, 0 0 40px #00aaff, 0 0 80px #00aaff, 0 0 20px #00aaff inset;
+    animation: none;
+}
+select option {
+    background-color: #121212;
+    color: #00aaff;
+    font-family: 'Press Start 2P', cursive;
+}
+.fan-control-label {
+    color: #00aaff;
+    font-size: 20px;
+    text-shadow: 0 0 5px #00aaff;
+    animation: neon-pulse-blue 3s infinite;
+}

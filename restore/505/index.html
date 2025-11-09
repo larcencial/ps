@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PS4 5.05 FW Restore Host by Ahmed Badawy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../../style.css">
+<script src="exploit.js"></script>
+</head>
+<body onload="setTimeout(exploit, 50);">
+<h1 id="msgs">PS4 5.05 FW Restore Host by Ahmed Badawy</h1>
+<hr>
+<br>
+<h1 id="msgs2" style="font-size: 30px;margin-top: 77px;margin-bottom: 400px; color: #00aaff;">Loading Payload... Please Wait</h1>
+
+<h1 style="margin-top: 25px; font-size: 18px; color: yellow;">Special Thanks to: <a href="https://twitter.com/_AlAzif" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@_AlAzif</a> Leeful <a href="https://twitter.com/SpecterDev" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@SpecterDev</a> SiSTR0 <a href="https://twitter.com/Prb29327239" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@Prb29327239</a></h1>
+
+<footer>
+    <p>Developed by Ahmed Badawy</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+</footer>
+
+<script>
+function allset(){
+msgs2.innerHTML = LoadedMSG
+}
+
+function load_payload(){
+req1=null;
+var req1=new XMLHttpRequest();
+req1.open('GET',PLfile);req1.responseType="arraybuffer";
+req1.send();
+ req1.onreadystatechange=function(){
+  if (req1.readyState==4){
+   var padding1=new Uint8Array(4 - (req1.response.byteLength % 4) % 4);
+   var tmp1=new Uint8Array(req1.response.byteLength + padding1.byteLength);
+   tmp1.set(new Uint8Array(req1.response),0);
+   tmp1.set(padding1,req1.response.byteLength);
+   var shellcode1=new Uint32Array(tmp1.buffer);
+   var code_addr1=new int64(0x26100000,0x00000009);
+   p.syscall(477,code_addr1,0x300000,7,0x41000,-1,0);
+    for(var i=0;i < shellcode1.length; i++){
+    p.write4(code_addr1.add32(0x100000 + i * 4),shellcode1[i]);
+    }
+   runPAYLOAD1=function(){
+   p.fcall(code_addr1);
+   PLfile=null;
+    for(var x=0;x < 0x300000;x += 8){
+    p.write8(code_addr1.add32(x),0);}
+    };
+    allset();
+   setTimeout(runPAYLOAD1,100);
+  }
+ };
+}
+
+function success(){
+LoadedMSG = "Payload Loaded ✔";
+PLfile = "payload.bin";
+load_payload();
+}
+</script>
+</body>
+</html>

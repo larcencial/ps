@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PS4 7.5x FW Restore Host by Ahmed Badawy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../../style.css">
+<style>
+/* تدرج الأنماط الجديدة ليتناسب مع style.css مع الإبقاء على الأنماط الخاصة بالـ Payload */
+html {
+    /* الخلفية المرجعية موجودة في style.css الأب */
+    background-color: #121212; /* Dark fallback */
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    overflow: hidden;
+}
+h1 {
+    font-size: 25px;
+    margin-top: 17px;
+    text-align: center;
+    /* تطبيق تأثير النيون من ملف style.css الرئيسي */
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+}
+#div1 {
+    height: 519px;
+}
+</style>
+</head>
+<body onload="go()">
+
+<h1 id="msgs">PS4 7.5x FW Restore Host by Ahmed Badawy</h1>
+<hr>
+
+<div id="log_area"></div>
+
+<script>
+var jailbreak_start_date, jailbreak_last_date, jailbreak_attempts, hours, minutes, seconds,
+logLevel = parseInt(localStorage.getItem("jailbreak_log_level"));
+if (isNaN(logLevel)) { logLevel = 2; }
+
+function convertTime(time) {
+  hours = Math.floor(time / 1000 / 60 / 60);
+  minutes = Math.floor(time / 1000 / 60 - hours * 60);
+  seconds = Math.floor(time / 1000 - minutes * 60);
+}
+
+const zerofy = (number) => String(number).padStart(2, '0');
+
+function jailbreakLogInit() {
+  jailbreak_start_date = Date.now();
+  localStorage.setItem("jailbreak_start_date", jailbreak_start_date);
+  localStorage.setItem("jailbreak_last_date", jailbreak_start_date);
+  jailbreak_attempts = 1;
+  localStorage.setItem("jailbreak_attempts", jailbreak_attempts);
+}
+
+    if (logLevel > 0) {
+      jailbreak_start_date = localStorage.getItem("jailbreak_start_date");
+        if (jailbreak_start_date === null) {
+          jailbreakLogInit();
+        } else {
+          jailbreak_attempts = localStorage.getItem("jailbreak_attempts");
+          jailbreak_attempts++;
+          localStorage.setItem("jailbreak_attempts", jailbreak_attempts);
+        }
+    }
+
+    if (logLevel > 0) {
+      let logArea = document.getElementById("log_area");
+      convertTime(Date.now() - jailbreak_start_date);
+      logArea.innerHTML += `<h1 style="font-size: 18px; color: yellow;">${"Attempts: "+jailbreak_attempts+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbspElapsed Time: " + zerofy(hours) + ":" + zerofy(minutes) + ":" + zerofy(seconds) + ""}`;
+      logArea.offsetHeight;   
+  }
+  
+function print(){}
+
+var scriptCode = '';
+
+function preloadScripts(lst) {
+    for(var i = 0; i < lst.length; i++) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', lst[i], false);
+      xhr.send('');
+      scriptCode += xhr.responseText + '\n';
+    }
+}
+
+window.midExploit = function()
+{
+    preloadScripts(['blob.js', 'jb.js', 'mira.js', 'payload.js', 'netcat.js'], go);
+}
+
+window.postExploit = function() {
+    if (logLevel > 0 ) {
+      localStorage.setItem("jailbreak_last_date", Date.now());
+    }
+    history.pushState({}, '', '../index.html');
+    setTimeout(function() {
+      eval.call(window, scriptCode);
+      done();
+    }, 100);
+}
+
+function done() {
+    if(main_ret == 0 || main_ret == 179)
+       {
+        if (logLevel > 0) {
+          jailbreak_last_date = Date.now();
+          localStorage.setItem("jailbreak_last_date", jailbreak_last_date);
+          convertTime(jailbreak_last_date - jailbreak_start_date);
+          alert("You're all set!\n\nTotal Time " + (hours * 60 + minutes) + " minute" + (minutes == 1 ? "" : "s") + " and " + seconds + " second" + (seconds == 1 ? "" : "s") + ".");
+        }
+          read_ptr_at(0);
+        } else
+      alert("Jailbreak failed! Reboot your PS4 and try again.");
+    }
+</script>
+<hr>
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="ps4.js"></script>
+<button id="input1" onfocus="handle2()"></button>
+<button id="input2"></button>
+<button id="input3" onfocus="handle2()"></button>
+<select id="select1">
+<option value="value1">Value1</option>
+</select>
+
+<footer>
+    <p>Developed by Ahmed Badawy</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PS4 7.50 - 7.55 FW Host - Generic Payload</title>
+<!-- We'll keep the styles inline for this exploit page for performance/simplicity -->
+<style>
+/* --- Neon/Retro Base Styles (Matching mira-75x.html) --- */
+html {
+    /* Uses the same background as the main host */
+    background-image: url('../img.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #121212; /* Dark fallback */
+    color: #00aaff; /* Neon blue text */
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Press Start 2P', cursive;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    font-size: 25px;
+    margin-top: 50px; /* Increased margin for better centering */
+    color: #ffffff;
+    /* Neon glow effect for titles */
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+}
+
+/* Style for the log area */
+#log_area {
+    margin-top: 20px;
+    color: #fffb00; /* Yellow for log info */
+    text-shadow: 0 0 5px #fffb00;
+}
+/* Style for the attempts/time log line */
+#log_area h1 {
+    font-size: 18px;
+    color: #fffb00;
+    text-shadow: 0 0 5px #fffb00, 0 0 10px #fffb00;
+}
+
+/* Hide the unused UI elements for the exploit trigger */
+#input1, #input2, #input3, #select1 {
+    display: none;
+}
+</style>
+<!-- Font Link needed for the exploit page to display correctly -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body onload="go()">
+<div id="log_area"></div>
+<script>
+var jailbreak_start_date, jailbreak_last_date, jailbreak_attempts, hours, minutes, seconds,
+logLevel = parseInt(localStorage.getItem("jailbreak_log_level"));
+if (isNaN(logLevel)) { logLevel = 2; }
+
+function convertTime(time) {
+  hours = Math.floor(time / 1000 / 60 / 60);
+  minutes = Math.floor(time / 1000 / 60 - hours * 60);
+  seconds = Math.floor(time / 1000 - minutes * 60);
+}
+
+const zerofy = (number) => String(number).padStart(2, '0');
+
+function jailbreakLogInit() {
+  jailbreak_start_date = Date.now();
+  localStorage.setItem("jailbreak_start_date", jailbreak_start_date);
+  localStorage.setItem("jailbreak_last_date", jailbreak_start_date);
+  jailbreak_attempts = 1;
+  localStorage.setItem("jailbreak_attempts", jailbreak_attempts);
+}
+
+    if (logLevel > 0) {
+      jailbreak_start_date = localStorage.getItem("jailbreak_start_date");
+        if (jailbreak_start_date === null) {
+          jailbreakLogInit();
+        } else {
+          jailbreak_attempts = localStorage.getItem("jailbreak_attempts");
+          jailbreak_attempts++;
+          localStorage.setItem("jailbreak_attempts", jailbreak_attempts);
+        }
+    }
+
+    if (logLevel > 0) {
+      let logArea = document.getElementById("log_area");
+      convertTime(Date.now() - jailbreak_start_date);
+      // Removed the extra innerHTML usage and updated the message
+      logArea.innerHTML = `<h1>Attempts: ${jailbreak_attempts} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Elapsed Time: ${zerofy(hours)}:${zerofy(minutes)}:${zerofy(seconds)} </h1>`;
+      // We don't need logArea.offsetHeight here since we are assigning the full innerHTML above
+   }
+   
+function print(){}
+
+var scriptCode = '';
+
+function preloadScripts(lst) {
+    for(var i = 0; i < lst.length; i++) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', lst[i], false);
+      xhr.send('');
+      scriptCode += xhr.responseText + '\n';
+    }
+}
+
+window.midExploit = function() 
+{
+    // Display starting message
+    document.getElementById("log_area").innerHTML += '<h1>Starting Generic Exploit...</h1>';
+
+    var scripts = ['blob.js', 'jb.js', 'mira.js'];
+    
+    // Check if a specific payload is requested via hash (#f=payload.js)
+    if(document.location.hash)
+    {
+        var s = decodeURIComponent(document.location.hash.substr(3));
+        // Add the specific payload file name 's' to the list
+        scripts.push(s); 
+    }
+    
+    // Add netcat.js last
+    scripts.push('netcat.js');
+    
+    preloadScripts(scripts, go);
+}
+
+window.postExploit = function() {
+    if (logLevel > 0 ) {
+      localStorage.setItem("jailbreak_last_date", Date.now());
+    }
+    // Corrected path to go back to the main index.html in the parent directory
+    history.pushState({}, '', '../index.html');
+    setTimeout(function() {
+      eval.call(window, scriptCode);
+      done();
+    }, 100);
+}
+
+function done() {
+    if(main_ret == 0 || main_ret == 179)
+        {
+         if (logLevel > 0) {
+           jailbreak_last_date = Date.now();
+           localStorage.setItem("jailbreak_last_date", jailbreak_last_date);
+           convertTime(jailbreak_last_date - jailbreak_start_date);
+           
+           // Replaced alert() with writing success message to the log area
+           document.getElementById("log_area").innerHTML = `<h1>Payload Loaded Successfully! \u2714</h1><h1 style="color: #00ff00;">Total Time: ${zerofy(hours * 60 + minutes)} min and ${zerofy(seconds)} sec.</h1>`;
+         }
+         read_ptr_at(0);
+        } else {
+         // Replaced alert() with writing failure message to the log area
+         document.getElementById("log_area").innerHTML = '<h1>Jailbreak failed! Reboot your PS4 and try again.</h1>';
+        }
+    }
+</script>
+<hr>
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="ps4.js"></script>
+<button id="input1" onfocus="handle2()"></button>
+<button id="input2"></button>
+<button id="input3" onfocus="handle2()"></button>
+<select id="select1">
+<option value="value1">Value1</option>
+</select>
+</body>
+</html>

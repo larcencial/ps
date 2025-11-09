@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+<title>PS4 7.50 - 7.55 FW Host v1.5 by Ahmed Badawy</title>
+<script>
+// --- CACHE FUNCTIONS ---
+// Function to update cache installation progress
+function DLProgress(e){
+    Percent = (Math.round(e.loaded / e.total * 100));
+    // The original line document.getElementById("display:none"); seems to be a mistake, removing it.
+    window.msgs.innerHTML = "Installing Offline Cache: " + Percent + "%";
+}
+// Function to display cache success message
+function DisplayCacheProgress(){
+    setTimeout(function(){window.msgs.innerHTML = "Cache Installed Successfully \u2714";}, 1000);
+    setTimeout(function(){window.msgs.innerHTML = "Now Close And Re-Open Your Browser ...";}, 3000);
+}
+// Listeners for the application cache events
+window.applicationCache.addEventListener("progress", DLProgress, false);
+window.applicationCache.oncached = function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready = function(e){DisplayCacheProgress();};
+
+// Set a cookie (used for exploit trigger mechanism)
+document.cookie = 'kex=1';
+</script>
+<!-- Font and Icon Links -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<!-- Main Stylesheet (Parent Directory) -->
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div id="menu">
+<h1 id="msgs">PS4 7.50 - 7.55 FW Host v1.5 by Ahmed Badawy</h1>
+<hr>
+<br>
+<h1 style="font-size: 18px;color: yellow;">Main & Other Payloads</h1>
+
+<div class="menu-layout">
+    <div class="column">
+        <button class="btn" onmouseover="mainpayload0()" onmouseout="pagetitle()" onclick="load_goldhenbeta()"> GoldHEN v2.4b18.6 </button>
+        <button class="btn" onmouseover="mainpayload1()" onmouseout="pagetitle()" onclick="load_goldhen23()"> GoldHEN v2.3 </button>
+        <button class="btn" onmouseover="mainpayload2()" onmouseout="pagetitle()" onclick="load_mira75x()"> MIRA 7.5x </button>
+        <button class="btn" onmouseover="mainpayload3()" onmouseout="pagetitle()" onclick="load_binloader()"> Bin Loader </button>
+        <button class="btn" onmouseover="todex()" onmouseout="pagetitle()" onclick="load_todex()"> ToDex </button>
+        <button class="btn" onmouseover="dumper()" onmouseout="pagetitle()" onclick="load_dumper()"> Dumper </button>
+        <button class="btn" onmouseover="ftp()" onmouseout="pagetitle()" onclick="load_ftp()"> FTP </button>
+        <button class="btn" onmouseover="app2usb()" onmouseout="pagetitle()" onclick="load_app2usb()"> App2USB </button>
+        <button class="btn" onmouseover="enableUpdates()" onmouseout="pagetitle()" onclick="load_enablebUpdates()"> Enable Updates </button>
+        <button class="btn" onmouseover="disableUpdates()" onmouseout="pagetitle()" onclick="load_disableUpdates()"> Disable Updates </button>
+        <button class="btn" onmouseover="dbackup()" onmouseout="pagetitle()" onclick="load_dbackup()"> DB Backup </button>
+        <button class="btn" onmouseover="dbrestore()" onmouseout="pagetitle()" onclick="load_dbrestore()"> DB Restore </button>
+    </div>
+    <div class="column">
+        <button class="btn" onmouseover="historyBlocker()" onmouseout="pagetitle()" onclick="load_historyBlocker()"> History Blocker </button>
+        <button class="btn" onmouseover="ebrowser()" onmouseout="pagetitle()" onclick="load_ebrowser()"> Enable Browser </button>
+        <button class="btn" onmouseover="kernelDump()" onmouseout="pagetitle()" onclick="load_kernelDump()"> Kernel Dumper </button>
+        <button class="btn" onmouseover="kernelClock()" onmouseout="pagetitle()" onclick="load_kernelClock()"> Kernel Clock </button>
+        <button class="btn" onmouseover="ps4debug()" onmouseout="pagetitle()" onclick="load_ps4debug()"> PS4 Debug </button>
+        <button class="btn" onmouseover="disbaslr()" onmouseout="pagetitle()" onclick="load_disbAslr()"> Disable ASLR </button>
+        <button class="btn" onmouseover="rifrenamer()" onmouseout="pagetitle()" onclick="load_rifRen()"> RIF Renamer </button>
+        <button class="btn" onmouseover="webact()" onmouseout="pagetitle()" onclick="load_webact()"> Web-Activator </button>
+        <button class="btn" onmouseover="exitidu()" onmouseout="pagetitle()" onclick="load_exitidu()"> Exit IDU </button>
+        <button class="btn" onmouseover="linux1gb()" onmouseout="pagetitle()" onclick="load_linux1gb()"> Linux 1GB </button>
+        <button class="btn" onmouseover="linux3gb()" onmouseout="pagetitle()" onclick="load_linux3gb()"> Linux 3GB </button>
+        <button class="btn btn-toolbox" onmouseover="orbistoolbox()" onmouseout="pagetitle()" onclick="load_toolbox()"> Orbis-Toolbox </button>
+    </div>
+</div>
+
+<div class="bottom-buttons">
+    <div class="fan-control">
+        <button class="btn" onmouseover="fanthreshold()" onmouseout="pagetitle()" onclick="load_fanthreshold()"> Fan Threshold </button>
+        <select id="tempC" onchange="saveFanSetting()"></select>
+        <span class="fan-control-label">&#176;C</span>
+    </div>
+    <button class="btn" onmouseover="mods()" onmouseout="pagetitle()" onclick="mods_group()"> Games Mods </button>
+    <button class="btn" onmouseover="webrte()" onmouseout="pagetitle()" onclick="load_webrte()"> WebRTE </button>
+    <button class="btn" onmouseover="ps4trainer()" onmouseout="pagetitle()" onclick="load_ps4trainer()"> PS4 Trainer Web </button>
+</div>
+
+</div>
+
+<div id="mods" style="display: none;">
+    <h1 id="msgs-mods">Games Mods</h1>
+    <hr><br>
+    <h1 style="font-size: 18px; color: yellow;">Payloads</h1>
+    <div class="menu-layout">
+        <div class="column">
+            <button class="btn" onmouseover="Lamance()" onmouseout="pagetitle()" onclick="load_Lamance()"> Lamance v0.9 - 1.38 </button>
+            <button class="btn" onmouseover="GTAWM146()" onmouseout="pagetitle()" onclick="load_WildeModz146()"> WildeModz-1.46 </button>
+        </div>
+        <div class="column">
+            <button class="btn" onmouseover="RedDeadMod1()" onmouseout="pagetitle()" onclick="load_Oysters100()"> RDR2 v1.00 </button>
+            <button class="btn" onmouseover="RedDeadMod2()" onmouseout="pagetitle()" onclick="load_Oysters113()"> RDR2 v1.13 </button>
+            <button class="btn" onmouseover="RedDeadMod3()" onmouseout="pagetitle()" onclick="load_Oysters119()"> RDR2 v1.19 </button>
+            <button class="btn" onmouseover="RedDeadMod4()" onmouseout="pagetitle()" onclick="load_Oysters124()"> RDR2 v1.24 </button>
+            <button class="btn" onmouseover="RedDeadMod5()" onmouseout="pagetitle()" onclick="load_Oysters129()"> RDR2 v1.29 </button>
+        </div>
+    </div>
+    <div class="bottom-buttons">
+        <button class="btn" onclick="load_menu()"> Return </button>
+    </div>
+</div>
+
+<footer>
+    <p>Developed by Ahmed Badawy</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+</footer>
+
+<script>
+// --- GLOBAL VARS & INIT ---
+const defaultTitle = "PS4 7.50 - 7.55 FW Host v1.5 by Ahmed Badawy";
+const defaultModsTitle = "Games Mods";
+
+// Initialize fan control select box and load saved setting
+function initFanControl() {
+    const tempCSelect = document.getElementById("tempC");
+    // Populate the dropdown from 40 to 79
+    for(var i=40; i<=79; i++){
+        var option = document.createElement("OPTION");
+        tempCSelect.options.add(option);
+        option.text = i;
+        option.value = i;
+    }
+
+    // Load saved value from localStorage, default to 60 if not found
+    const savedTemp = localStorage.getItem('fanthreshold');
+    tempCSelect.value = savedTemp !== null ? savedTemp : 60;
+}
+
+// Save the fan setting whenever the user changes the select box
+function saveFanSetting() {
+    const tempCSelect = document.getElementById("tempC");
+    localStorage.setItem('fanthreshold', tempCSelect.value);
+}
+
+// Load fan setting when the fan threshold button is clicked
+function load_fanthreshold(){
+    var link = document.createElement('a');
+    document.body.appendChild(link);
+    // Use the saved value from the dropdown
+    link.href = 'payload.html#f=fanThreshold.js';
+    localStorage.setItem('fanthreshold', document.getElementById("tempC").value);
+    link.click();
+}
+
+// --- MENU NAVIGATION FUNCTIONS ---
+
+// Return to the main title
+function pagetitle(){
+    document.getElementById("msgs").innerHTML = defaultTitle;
+    document.getElementById("msgs-mods").innerHTML = defaultModsTitle;
+}
+
+// Show the Games Mods menu
+function mods_group(){
+    document.getElementById("mods").style.display = "block";
+    document.getElementById("menu").style.display = "none";
+}
+
+// Show the Main menu
+function load_menu(){
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("mods").style.display = "none";
+    pagetitle(); // Reset title on returning to main menu
+}
+
+// --- PAYLOAD HOVER MESSAGE FUNCTIONS (Simplified) ---
+
+function mainpayload0(){ document.getElementById("msgs").innerHTML = "GoldHEN v2.4b18.6 for Firmware 7.55 (Includes Temporary Fix for CE-30391-6)"; }
+function mainpayload1(){ document.getElementById("msgs").innerHTML = "GoldHEN v2.3 for Firmware 7.55 (Includes Temporary Fix for CE-30391-6)"; }
+function mainpayload2(){ document.getElementById("msgs").innerHTML = "MIRA for All Firmwares 7.5x"; }
+function mainpayload3(){ document.getElementById("msgs").innerHTML = "Inject a Payload Using the IP of the console and Port 9021"; }
+function todex(){ document.getElementById("msgs").innerHTML = "Enable Some Debugging Functions Available on TestKit"; }
+function dumper(){ document.getElementById("msgs").innerHTML = "Dump Games to USB Drive"; }
+function ftp(){ document.getElementById("msgs").innerHTML = "Access this console Through FTP (Be careful what you do)"; }
+function app2usb(){ document.getElementById("msgs").innerHTML = "Transfer Games / Apps to USB Drive in exFAT"; }
+function enableUpdates(){ document.getElementById("msgs").innerHTML = "Enable System Updates"; }
+function disableUpdates(){ document.getElementById("msgs").innerHTML = "Disable System Updates"; }
+function dbackup(){ document.getElementById("msgs").innerHTML = "Creates a Backup of the Console Database and Your User on a USB Drive"; }
+function dbrestore(){ document.getElementById("msgs").innerHTML = "Restore Database Backup from USB Drive"; }
+function historyBlocker(){ document.getElementById("msgs").innerHTML = "Disable Browser History, it will only show Frequently used Pages once you open"; }
+function ebrowser(){ document.getElementById("msgs").innerHTML = "Enable The PS4 Browser"; }
+function kernelDump(){ document.getElementById("msgs").innerHTML = "Dump a Conole Kernel to USB Drive"; }
+function kernelClock(){ document.getElementById("msgs").innerHTML = "Change the Time for the Console Kernel Clock"; }
+function ps4debug(){ document.getElementById("msgs").innerHTML = "Activate Your User Account Offline"; }
+function disbaslr(){ document.getElementById("msgs").innerHTML = "Disables the ASLR (Address space layout randomization)"; }
+function rifrenamer(){ document.getElementById("msgs").innerHTML = "Renames 'fake' RIFs to 'free' RIFs"; }
+function fanthreshold(){ document.getElementById("msgs").innerHTML = "Modify PS4 FAN Speed"; }
+function webact(){ document.getElementById("msgs").innerHTML = "Activate Your User Account from the Console Browser"; }
+function exitidu(){ document.getElementById("msgs").innerHTML = "Disable IDU Mode, if you have activated it by mistake"; }
+function linux1gb(){ document.getElementById("msgs").innerHTML = "Load Linux with 1GB VRAM"; }
+function linux3gb(){ document.getElementById("msgs").innerHTML = "Load Linux with 3GB VRAM"; }
+function mods(){ document.getElementById("msgs").innerHTML = "Games Mods"; }
+function orbistoolbox(){ document.getElementById("msgs").innerHTML = "Orbis ToolBox Alpha Build 1167 for Firmware 7.55"; }
+function webrte(){ document.getElementById("msgs").innerHTML = "Required to Activate Cheats Through the PS4 Trainer Website"; }
+function ps4trainer(){ document.getElementById("msgs").innerHTML = "PS4 Trainer Website (Follow Instructions There)"; }
+function Lamance(){ document.getElementById("msgs-mods").innerHTML = "GTA V Mod - Lamance v0.9 - 1.38 (Right + Square)"; }
+function GTAWM146(){ document.getElementById("msgs-mods").innerHTML = "GTA V Mod - WildeModz-1.46"; }
+function RedDeadMod1(){ document.getElementById("msgs-mods").innerHTML = "Red Dead Redemption 2 Mod - Oysters Menu 1.00 v1.3.8"; }
+function RedDeadMod2(){ document.getElementById("msgs-mods").innerHTML = "Red Dead Redemption 2 Mod - Oysters Menu 1.13 v1.3.8"; }
+function RedDeadMod3(){ document.getElementById("msgs-mods").innerHTML = "Red Dead Redemption 2 Mod - Oysters Menu 1.19 v1.3.8"; }
+function RedDeadMod4(){ document.getElementById("msgs-mods").innerHTML = "Red Dead Redemption 2 Mod - Oysters Menu 1.24 v1.3.8"; }
+function RedDeadMod5(){ document.getElementById("msgs-mods").innerHTML = "Red Dead Redemption 2 Mod - Oysters Menu 1.29 v1.3.8"; }
+
+// --- PAYLOAD LOADING FUNCTIONS (No Change) ---
+
+// Helper function to create the link and click it
+function goToPayload(filename, isExternal = false) {
+    var link = document.createElement('a');
+    document.body.appendChild(link);
+    link.href = isExternal ? filename : 'payload.html#f=' + filename;
+    if (isExternal) {
+        link.target = "_blank";
+    }
+    link.click();
+}
+
+function load_goldhenbeta(){ goToPayload('goldhen_2.4b18.6.js'); }
+function load_goldhen23(){ goToPayload('goldhen_2.3.js'); }
+function load_mira75x(){ goToPayload('mira-75x.html', true); } // Mira is loaded via mira-75x.html
+function load_binloader(){ goToPayload(''); } // Assuming 'payload.html' without #f loads binloader
+function load_todex(){ goToPayload('todex.js'); }
+function load_dumper(){ goToPayload('app-dumper.js'); }
+function load_ftp(){ goToPayload('ftp.js'); }
+function load_app2usb(){ goToPayload('app2usb.js'); }
+function load_enablebUpdates(){ goToPayload('enable-updates.js'); }
+function load_disableUpdates(){ goToPayload('disable-updates.js'); }
+function load_dbackup(){ goToPayload('backup.js'); }
+function load_dbrestore(){ goToPayload('restore.js'); }
+function load_historyBlocker(){ goToPayload('history-blocker.js'); }
+function load_ebrowser(){ goToPayload('enable-browser.js'); }
+function load_kernelDump(){ goToPayload('kernel-dumper.js'); }
+function load_kernelClock(){ goToPayload('kernel-clock.js'); }
+function load_ps4debug(){ goToPayload('ps4debug.js'); }
+function load_disbAslr(){ goToPayload('disable-aslr.js'); }
+function load_rifRen(){ goToPayload('rif-renamer.js'); }
+function load_webact(){ goToPayload('web-activator.html', true); } // Web-Activator is loaded via web-activator.html
+function load_exitidu(){ goToPayload('idu.js'); }
+function load_linux1gb(){ goToPayload('linux-1gb.js'); }
+function load_linux3gb(){ goToPayload('linux-3gb.js'); }
+function load_toolbox(){ goToPayload('Orbis-Toolbox-755.js'); }
+function load_webrte(){ goToPayload('webrte.js'); }
+function load_ps4trainer(){ goToPayload('http://ps4trainer.com/Trainer/index.html', true); }
+
+// Games Mods Payloads
+function load_Lamance(){ goToPayload('Lamance-v0.9-1.38.js'); }
+function load_WildeModz146(){ goToPayload('WildeModz-1.46.js'); }
+function load_Oysters100(){ goToPayload('OystersMenu-v1.3.8-v1.00.js'); }
+function load_Oysters113(){ goToPayload('OystersMenu-v1.3.8-v1.13.js'); }
+function load_Oysters119(){ goToPayload('OystersMenu-v1.3.8-v1.19.js'); }
+function load_Oysters124(){ goToPayload('OystersMenu-v1.3.8-v1.24.js'); }
+function load_Oysters129(){ goToPayload('OystersMenu-v1.3.8-v1.29.js'); }
+
+// --- POST-LOAD CLEANUP ---
+// Remove old localStorage item if present (from original script)
+var jailbreak_start_date = localStorage.getItem("jailbreak_start_date");
+if (jailbreak_start_date !== null) {
+    localStorage.removeItem("jailbreak_start_date");
+}
+
+// Run initialization functions
+window.onload = function() {
+    initFanControl();
+};
+</script>
+</body>
+</html>

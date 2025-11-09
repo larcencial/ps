@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PS4 7.50 - 7.55 FW Host - Web Activator</title>
+<!-- We'll keep the styles inline for this exploit page for performance/simplicity -->
+<style>
+/* --- Neon/Retro Base Styles (Matching other exploit pages) --- */
+html {
+    /* Uses the same background as the main host */
+    background-image: url('../img.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #121212; /* Dark fallback */
+    color: #00aaff; /* Neon blue text */
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Press Start 2P', cursive;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    font-size: 25px;
+    margin-top: 50px; /* Increased margin for better centering */
+    color: #ffffff;
+    /* Neon glow effect for titles */
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+    animation: gentle-title-glow 4s ease-in-out infinite;
+}
+
+/* Keyframe for title glow (copied from style.css for self-containment) */
+@keyframes gentle-title-glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00aaff, 0 0 20px #00aaff, 0 0 25px #00aaff;
+    }
+    50% {
+        text-shadow: 0 0 7px #fff, 0 0 12px #fff, 0 0 20px #00aaff, 0 0 30px #00aaff, 0 0 40px #00aaff;
+    }
+}
+
+/* Hide the unused UI elements for the exploit trigger */
+#input1, #input2, #input3, #select1 {
+    display: none;
+}
+</style>
+<!-- Font Link needed for the exploit page to display correctly -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body onload="go()">
+<!-- Added a message for the user since there is no log_area on this page -->
+<h1 id="msgs">Loading Web Activator... Please Wait.</h1>
+
+<script>
+function print(){}
+
+var scriptCode = '';
+
+function preloadScripts(lst)
+{
+    for(var i = 0; i < lst.length; i++)
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', lst[i], false);
+        xhr.send('');
+        scriptCode += xhr.responseText + '\n';
+    }
+}
+
+function done(){
+    // Update the message on success
+    document.getElementById("msgs").innerHTML = "Web Activator Loaded Successfully! \u2714";
+}
+
+window.midExploit = function()
+{
+    // Update message to show exploit started
+    document.getElementById("msgs").innerHTML = "Starting Exploit...";
+    preloadScripts(['blob.js', 'jb.js', 'mira.js', 'web-activator.js', 'netcat.js', 'frontend.js'], go);
+}
+
+window.postExploit = function()
+{
+    // Corrected path to go back to the main index.html in the parent directory
+    history.pushState({}, '', '../index.html');
+    setTimeout(function() //update the screen one last time...
+    {
+        eval.call(window, scriptCode);
+        done();
+    }, 100);
+};
+</script>
+<hr>
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="ps4.js"></script>
+<button id="input1" onfocus="handle2()"></button>
+<button id="input2"></button>
+<button id="input3" onfocus="handle2()"></button>
+<select id="select1"><option value="value1">Value1</option></select>
+</body>
+</html>

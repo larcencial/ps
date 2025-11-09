@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+<title>PS4 5.05 FW GoldHEN Host by Ahmed Badawy</title>
+<!-- Font and Icon Links -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../style.css">
+<script src="exploit.js"></script>
+</head>
+<body onload="if(localStorage.cached505=='yes')setTimeout(exploit, 50);">
+
+<script>
+// Logic to handle Cache installation messages
+function DLProgress(e){
+    const percent = Math.round(e.loaded / e.total * 100);
+    document.getElementById("status-msg").innerHTML = "Installing Offline Cache: " + percent + "%";
+}
+
+function DisplayCacheProgress(){
+    setTimeout(function(){
+        document.getElementById("status-msg").innerHTML = "Cache Installed Successfully \u2714";
+    }, 1500);
+    setTimeout(function(){
+        document.getElementById("status-msg").innerHTML = "Now Close And Re-Open Your Browser ...";
+    }, 3500);
+}
+
+// Bind Cache Events
+window.applicationCache.addEventListener("progress", DLProgress, false);
+window.applicationCache.oncached = function(){
+    DisplayCacheProgress();
+    localStorage.cached505 = "yes";
+};
+window.applicationCache.onupdateready = function(){
+    DisplayCacheProgress();
+    localStorage.cached505 = "yes";
+};
+window.applicationCache.onnoupdate = function(){localStorage.cached505 = "yes";};
+window.applicationCache.onerror = function(){localStorage.cached505 = "yes";};
+
+// --- Payload Execution Logic ---
+
+let LoadedMSG;
+let PLfile = "goldhen_2.4b18.6.bin"; // Default payload for this auto-load page
+
+// 1. Function called upon successful payload injection
+function allset(){
+    document.getElementById("status-msg").innerHTML = LoadedMSG; // Display the final success message
+}
+
+// 2. Main payload loading function (using XMLHttpRequest to fetch BIN)
+function load_payload(){
+    // Ensure the message shows loading before fetching
+    document.getElementById("status-msg").innerHTML = "Loading GoldHEN v2.4b18.6... Please Wait";
+
+    let req1 = new XMLHttpRequest();
+    req1.open('GET', PLfile);
+    req1.responseType = "arraybuffer";
+    req1.send();
+    
+    req1.onreadystatechange = function(){
+        if (req1.readyState === 4){
+            // Code for payload injection (Kernel exploit execution)
+            const padding1 = new Uint8Array(4 - (req1.response.byteLength % 4) % 4);
+            const tmp1 = new Uint8Array(req1.response.byteLength + padding1.byteLength);
+            tmp1.set(new Uint8Array(req1.response), 0);
+            tmp1.set(padding1, req1.response.byteLength);
+            
+            const shellcode1 = new Uint32Array(tmp1.buffer);
+            const code_addr1 = new int64(0x26100000, 0x00000009);
+            
+            // Assuming 'p' and 'int64' are defined in 'exploit.js'
+            p.syscall(477, code_addr1, 0x300000, 7, 0x41000, -1, 0);
+            
+            for(let i = 0; i < shellcode1.length; i++){
+                p.write4(code_addr1.add32(0x100000 + i * 4), shellcode1[i]);
+            }
+            
+            const runPAYLOAD1 = function(){
+                p.fcall(code_addr1);
+                PLfile = null;
+                for(let x = 0; x < 0x300000; x += 8){
+                    p.write8(code_addr1.add32(x), 0);
+                }
+            };
+            
+            allset(); // Update message immediately upon success detection
+            setTimeout(runPAYLOAD1, 100);
+        }
+    };
+}
+
+// 3. Success function called from exploit.js (assumed)
+function success(){
+    LoadedMSG = "GoldHEN v2.4b18.6 Loaded \u2714";
+    load_payload();
+}
+
+</script>
+
+<div id="main-container">
+    <h1 id="msgs">PS4 5.05 FW GoldHEN Host by Ahmed Badawy</h1>
+    <hr>
+    <br>
+    
+    <!-- Status/Progress Display -->
+    <div id="progress">
+        <h1 id="status-msg" class="loading-message">Loading... Please Wait</h1>
+    </div>
+
+</div>
+
+<!-- Footer with Contact Info -->
+<footer>
+    <p>Developed by Ahmed Badawy</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+    <h1 class="thanks-message">Special Thanks to: <a href="https://twitter.com/_AlAzif">@_AlAzif</a> | Leeful | <a href="https://twitter.com/SpecterDev">@SpecterDev</a> | SiSTR0 | <a href="https://twitter.com/Prb29327239">@Prb29327239</a> | and All PS4 Exploit Developers</h1>
+</footer>
+
+</body>
+</html>

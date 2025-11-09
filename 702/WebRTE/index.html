@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4 7.02 FW WebRTE by Ahmed Badawy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+    /* التنسيقات الداخلية الخاصة بالـ WebRTE (مع الإبقاء على الوظيفة) */
+    html {
+        /* الخلفية المرجعية موجودة في style.css الأب */
+        background-color: #121212; /* Dark fallback */
+        color: white;
+        text-align: center;
+        overflow: hidden;
+    }
+    #div1 {
+        height: 588px;
+    }
+    </style>
+    <script src="utils.js"></script>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="webrte.js"></script>
+    <script src="userland.js"></script>
+    <script src="ps4.js"></script>
+
+</head>
+<body onload="go()">
+    <h1 id="msgs">PS4 7.02 FW WebRTE by Ahmed Badawy</h1>
+    <hr>
+    <h2 style="font-size: 18px; color: yellow; margin-top: 50px;">Running WebRTE exploit...</h2>
+    
+    <button id="input1" onfocus="handle2()"></button>
+    <button id="input2"></button>
+    <button id="input3" onfocus="handle2()"></button>
+    <select id="select1">
+        <option value="value1">Value1</option>
+    </select>
+</body>
+</html>

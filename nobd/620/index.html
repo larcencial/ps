@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PS4 6.20 FW NoBD Host by Ahmed Badawy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="../../style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* إعادة كتابة الـ CSS الداخلي بشكل سليم لضمان عدم وجود أخطاء صياغة
+   الألوان تم تحديثها لنمط النيون
+*/
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -75px 0 0 -75px;
+  border: 10px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top: 10px solid #00aaff; /* Neon Blue */
+  border-left: 10px solid #00aaff; /* Neon Blue */
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+.info {
+  overflow: hidden;
+  position: fixed;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fffb00; /* Neon Yellow for emphasis */
+  font-size: 25px;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 0 0 5px #fffb00;
+  transform: translate(-50%, -50%);
+}
+
+.credits {
+  overflow: hidden;
+  position: fixed;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  font-size: 16px;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  transform: translate(-50%, -90%);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+</style>
+</head>
+<body style="margin:0;">
+  <script>
+    window.didload = 0;
+    window.didpost = 0;
+
+    window.onload = function () {
+      window.didload = 1;
+      if (window.didpost == 1)
+        setTimeout(window.stage2, 1500);
+    }
+    window.postExpl = function () {
+      window.didpost = 1;
+      if (window.didload == 1)
+        setTimeout(window.stage2, 1500);
+    }
+
+    function allset() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("awaiting").style.display = "none";
+      document.getElementById("allset").style.display = "block";
+    }
+
+    function awaitpl() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("awaiting").style.display = "block";
+    }
+
+    function fail(info) {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("fail").style.display = "block";
+    }
+  </script>
+
+  <h1 id="msgs">PS4 6.20 FW NoBD Host by Ahmed Badawy</h1>
+  <hr>
+
+  <div id="loader" class="loader"></div>
+
+  <div id="awaiting" class="info" style="display:none;">
+    NoBD Payload Loaded...
+  </div>
+
+  <div id="allset" class="info" style="display:none;">
+    You're all set!
+  </div>
+
+  <div id="fail" class="info" style="display:none;">
+    Something went wrong :(
+  </div>
+
+  <div id="badfw" class="info" style="display:none;">
+    Only firmware 6.20 is supported!
+  </div>
+
+  <script src="./rop.js"></script>
+  <script src="./syscalls.js"></script>
+  <script src="./expl.js"></script>
+  <script src="./userland.js"></script>
+  <pre id="console"></pre>
+  
+  <div class="credits" style="color: #00aaff;">
+      Special Thanks to: LightningMods_
+  </div>
+
+<footer>
+    <p>Developed by Ahmed Badawy</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+</footer>
+</body>
+</html>

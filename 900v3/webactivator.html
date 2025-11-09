@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4 9.00 FW Web Activator by LarcenciaL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<h1 id="msgs">PS4 9.00 FW Web Activator by LarcenciaL</h1>
+<hr>
+<br>
+<h1 style="margin-top: 17px; font-size: 20px; color: #00aaff;">Loading Web Activator Payload... Please Wait !!!</h1>
+<br><br><br><br><br><br><br><br><br><br><br>
+<h1 style="font-size:30px; color: yellow;">This will take a time between 20 and 40 seconds ...</h1>
+<div style="opacity: 0">
+<p><i>Italic text</i></p>
+<table>
+<tr>
+<th>H1</th>
+<th>H2</th>
+<th>H3</th>
+</tr>
+<tr>
+<td>text</td>
+<td><input value="text"/></td>
+<td><button>text</button></td>
+</tr>
+</table>
+</div>
+<script>
+function loadScript(path)
+{
+    var xhr = new XMLHttpRequest(path);
+    xhr.open("GET", path, false);
+    xhr.send('');
+    return xhr.responseText;
+}
+
+setTimeout(function(){
+eval.call(window, loadScript('netcat.js')
++loadScript('exploit.js')
++loadScript('malloc.js')
++loadScript('rop2.js')
++loadScript('syscalls.js')
++loadScript('syscalls2.js')
++loadScript('payload.js')
++loadScript('relocator.js')
++loadScript('frontend.js'));
+// تم حذف السطر: document.getElementById('q').innerHTML = 'Some other text';
+}, 50);
+</script>
+
+<footer>
+    <p>Developed by LarcenciaL</p>
+    <a href="https://wa.me/+201110210770" target="_blank" class="whatsapp-link">
+        <i class="fab fa-whatsapp"></i> 01110210770
+    </a>
+</footer>
+</body>
+</html>
